@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiblioNova</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap"
+          rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            background-color: #f4f6f8;
+            color: #333;
+            overflow: hidden; /* Prevent scroll */
+        }
+
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li {
+            position: relative;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #495057;
+            color: #fff;
+        }
+
+        nav ul li .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #343a40;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        nav ul li:hover .dropdown-menu {
+            display: block;
+        }
+
+        nav ul li .dropdown-menu a {
+            color: #fff;
+            padding: 10px 15px;
+            display: block;
+            white-space: nowrap;
+        }
+
+        nav ul li .dropdown-menu a:hover {
+            background-color: #495057;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100% - 60px); /* Adjust based on header height */
+            justify-content: space-between;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        main {
+            flex: 1;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-right: 20px; /* Added margin between main and illustration */
+            overflow-y: auto;
+        }
+
+        .illustration {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+        }
+
+        .welcome h2 {
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+
+        .welcome p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #d4af37; /* Golden color */
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .btn-primary:hover {
+            background-color: #b8860b; /* Darker golden color */
+        }
+
+        .metrics {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .metrics div {
+            background-color: #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            width: 30%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin: 10px; /* Added margin between metrics */
+        }
+
+        .metrics h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #b8860b; /* Golden color */
+        }
+
+        .metrics p {
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        section {
+            margin-top: 30px;
+            overflow: hidden; /* Prevent scroll in this section */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>BiblioNova</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}"
+                   class="{{ 'active' if request.endpoint == 'index' else '' }}">Accueil</a></li>
+            {% if current_user.is_authenticated %}
+                {% if current_user.role == 'admin' %}
+                    <li>
+                        <a href="#" class="dropdown-toggle">Gestion des Livres</a>
+                        <div class="dropdown-menu">
+                            <a href="{{ url_for('liste_livres') }}"
+                               class="{{ 'active' if request.endpoint == 'liste_livres' else '' }}">Liste des Livres</a>
+                            <a href="{{ url_for('ajouter_livre') }}"
+                               class="{{ 'active' if request.endpoint == 'ajouter_livre' else '' }}">Ajouter Livre</a>
+                            <a href="{{ url_for('retourner_livre') }}"
+                               class="{{ 'active' if request.endpoint == 'retourner_livre' else '' }}">Retour Livre</a>
+                            <a href="{{ url_for('historique_prets') }}"
+                               class="{{ 'active' if request.endpoint == 'historique_prets' else '' }}">Historique</a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#" class="dropdown-toggle">Gestion des Adhérents</a>
+                        <div class="dropdown-menu">
+                            <a href="{{ url_for('ajouter_adherent') }}"
+                               class="{{ 'active' if request.endpoint == 'ajouter_adherent' else '' }}">Ajouter
+                                Adhérent</a>
+                            <a href="{{ url_for('liste_adherents') }}"
+                               class="{{ 'active' if request.endpoint == 'liste_adherents' else '' }}">Adhérents</a>
+                        </div>
+                    </li>
+                {% endif %}
+
+
+                {% if current_user.role == 'user' %}
+                    <li>
+                        <a href="#" class="dropdown-toggle">Gestion des Livres</a>
+                        <div class="dropdown-menu">
+                            <a href="{{ url_for('liste_livres') }}"
+                               class="{{ 'active' if request.endpoint == 'liste_livres' else '' }}">Liste des Livres</a>
+
+                            <a href="{{ url_for('emprunter_livre') }}"
+                               class="{{ 'active' if request.endpoint == 'emprunter_livre' else '' }}">Emprunter un Livre</a>
+                            <a href="{{ url_for('historique_prets') }}"
+                               class="{{ 'active' if request.endpoint == 'historique_prets' else '' }}">Historique</a>
+                        </div>
+                    </li>
+
+                {% endif %}
+                <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}" class="{{ 'active' if request.endpoint == 'login' else '' }}">Connexion</a>
+                </li>
+                <li><a href="{{ url_for('signup') }}" class="{{ 'active' if request.endpoint == 'signup' else '' }}">Inscription</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <main>
+        <div class="welcome">
+            <h2>Bienvenue à BiblioNova</h2>
+            <p>Plongez dans notre vaste bibliothèque numérique, empruntez des livres en ligne, et suivez vos emprunts
+                avec une facilité déconcertante.</p>
+            <a href="{{ url_for('liste_livres') }}" class="btn btn-primary">Découvrir les Livres</a>
+            <a href="{{ url_for('signup') }}" class="btn btn-primary">Rejoindre Maintenant</a> <!-- Added button -->
+        </div>
+        <div class="metrics">
+            <div>
+                <h3>5000+</h3>
+                <p>Livres Disponibles</p>
+            </div>
+            <div>
+                <h3>2000+</h3>
+                <p>Adhérents Actifs</p>
+            </div>
+            <div>
+                <h3>100+</h3>
+                <p>Genres Littéraires</p>
+            </div>
+        </div>
+        <section>
+            <h3>Pourquoi choisir notre bibliothèque ?</h3>
+            <p>Avec notre plateforme de gestion innovante, accédez à une collection inépuisable de livres, gérez vos
+                emprunts sans tracas, et explorez de nouveaux horizons littéraires. Notre interface intuitive vous
+                permet de naviguer dans notre catalogue, d'emprunter des livres en quelques clics, et de suivre vos
+                lectures sans effort. Rejoignez notre communauté de passionnés de lecture dès maintenant !</p>
+        </section>
+    </main>
+    <div class="illustration">
+        <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d" alt="Illustration de la bibliothèque">
+    </div>
+</div>
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

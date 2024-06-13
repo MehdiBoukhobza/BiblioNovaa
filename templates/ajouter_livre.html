@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Ajouter un Nouveau Livre</h2>
+<div class="content-wrapper">
+    <form method="post" class="ajouter-livre-form">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="titre">Titre du Livre:</label>
+                <input type="text" id="titre" name="titre" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="auteur">Nom de l'Auteur:</label>
+                <input type="text" id="auteur" name="auteur" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="genre">Catégorie:</label>
+                <input type="text" id="genre" name="genre">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="quantite_disponible">Quantité Disponible:</label>
+                <input type="number" id="quantite_disponible" name="quantite_disponible" min="1" value="1">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="resume">Description:</label>
+            <textarea id="resume" name="resume"></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="max_emprunts">Max Emprunts:</label>
+                <input type="number" id="max_emprunts" name="max_emprunts" min="1" value="1">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter le Livre</button>
+    </form>
+    <div class="image-wrapper">
+        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D" alt="Library Image">
+    </div>
+</div>
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: 'Playfair Display', serif;
+        background-color: #f4f6f8;
+        color: #333;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .content-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .ajouter-livre-form {
+        flex: 0 0 45%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .ajouter-livre-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .ajouter-livre-form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .ajouter-livre-form input[type="text"],
+    .ajouter-livre-form input[type="number"],
+    .ajouter-livre-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .ajouter-livre-form .btn {
+        display: inline-block;
+        padding: 10px 25px;
+        font-size: 1.1em;
+        color: #fff;
+        background-color: #d4af37; /* Golden color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .ajouter-livre-form .btn:hover {
+        background-color: #b8860b; /* Darker golden color */
+    }
+
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-row .form-group {
+        flex: 0 0 48%;
+    }
+
+    .image-wrapper {
+        flex: 0 0 45%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image-wrapper img {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}

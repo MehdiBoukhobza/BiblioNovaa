@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="signup-container mt-5">
+    <div class="signup-image">
+        <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d" alt="Illustration de la bibliothèque">
+    </div>
+    <div class="signup-content">
+        <h2 class="text-center mb-4">Inscription</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} mt-3">
+                  {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form method="post" class="signup-form">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur:</label>
+                <input type="text" id="username" name="username" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required class="form-control">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Inscription</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .signup-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff; /* White background */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .signup-content {
+        flex: 1;
+        padding-right: 20px;
+    }
+
+    h2 {
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-weight: 300;
+        font-family: 'Playfair Display', serif; /* Apply font */
+        color: #333; /* Text color */
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-family: 'Playfair Display', serif; /* Apply font */
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 1rem;
+        font-family: 'Playfair Display', serif; /* Apply font */
+    }
+
+    .form-group input:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-lg {
+        padding: 12px 24px;
+        font-size: 1.1em; /* Match font size of main page buttons */
+        font-weight: bold;
+    }
+
+    .btn {
+        color: #fff;
+        background-color: #d4af37; /* Golden color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #b8860b; /* Darker golden color */
+    }
+
+    .alert {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-family: 'Playfair Display', serif; /* Apply font */
+    }
+
+    .alert-danger {
+        background-color: #dc3545; /* Red color for error messages */
+        color: #fff;
+    }
+
+    .alert-success {
+        background-color: #28a745; /* Green color for confirmation messages */
+        color: #fff;
+    }
+
+    .signup-image {
+        flex: 1;
+        text-align: center;
+        margin-right: 30px;
+    }
+
+    .signup-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}

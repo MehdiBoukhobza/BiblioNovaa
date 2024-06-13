@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Liste des Adhérents</h2>
+<p class="intro-text">Voici la liste des adhérents inscrits dans notre bibliothèque. Vous pouvez modifier ou supprimer un adhérent en utilisant les boutons correspondants.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom d'utilisateur</th>
+            <th>Rôle</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for adherent in adherents %}
+        <tr class="{{ loop.cycle('row-light', 'row-dark') }}">
+            <td>{{ adherent.username }}</td>
+            <td>{{ adherent.role }}</td>
+            <td>
+                <a href="{{ url_for('modifier_adherent', username=adherent.username) }}" class="btn btn-primary btn-sm">Modifier</a>
+                <form method="post" action="{{ url_for('supprimer_adherent', username=adherent.username) }}" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    body {
+        font-family: 'Playfair Display', serif;
+        background-color: #f4f6f8;
+        color: #333;
+    }
+
+    h2 {
+        font-size: 2.2em;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .intro-text {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.2em;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+        overflow: hidden;
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .row-light {
+        background-color: #F4FFF0;
+    }
+
+    .row-dark {
+        background-color: #f4f4f4;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #d4af37;
+        border-color: #d4af37;
+    }
+
+    .btn-primary:hover {
+        background-color: #b8860b;
+        border-color: #b8860b;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    .btn-danger:hover {
+        background-color: #c9302c;
+        border-color: #ac2925;
+    }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+        font-size: 1.1em;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Modifier Adhérent</h2>
+<form method="post" class="modifier-adherent-form">
+    <div class="form-group">
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" name="username" value="{{ adherent.username }}">
+    </div>
+    <div class="form-group">
+        <label for="nouveau_role">Nouveau rôle:</label>
+        <input type="text" id="nouveau_role" name="nouveau_role" value="{{ adherent.role }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Modifier</button>
+</form>
+{% endblock %}
