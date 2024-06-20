@@ -37,16 +37,13 @@ BiblioNovaa is a comprehensive web application designed for efficient library ma
     cd BiblioNovaa
     ```
 
-2. Create a virtual environment and activate it:
+2. Create a virtual environment and activate it or add one automatically using PyCharm:
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
 3. Install the required packages:
-    ```bash
-    pip install -r requirements.txt
-    ```
 
 4. Set up MongoDB and Neo4j:
     - Ensure MongoDB is running on your machine or server.
